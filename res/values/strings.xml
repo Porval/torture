@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">SelfTorture</string>
+    <string name="hello_world">TorTure</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_toture">TotureActivity</string>
+
+
+    <string name="empty_content_hint">Empty Input You are Lazy pig</string>
+    <string name="empty_title_hint">Lazy pig</string>
+
+
+</resources>
