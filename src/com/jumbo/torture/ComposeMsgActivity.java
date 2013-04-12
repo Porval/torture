@@ -1,6 +1,7 @@
 package com.jumbo.torture;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -82,7 +83,6 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
             mMode = MODE_INSERT;
             mUri = getContentResolver().insert(mUri, null);
         }
-
     }
 
     private void initView(){
@@ -93,11 +93,18 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
         findViewById(R.id.cancel_btn).setOnClickListener(this);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         fillViewData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(MODE_INSERT == mMode && mUri != null && mContentEditor.getText().length() == 0){
+            deleteMsg(this,mUri);
+        }
     }
 
     private void fillViewData(){
@@ -119,6 +126,15 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
         }
     }
 
+    private void deleteMsg(Context context,Uri uri){
+        try {
+            context.getContentResolver().delete(uri,null, null);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -132,6 +148,10 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
                 }
                 break;
             case R.id.cancel_btn:
+                if(MODE_INSERT == mMode){
+                    deleteMsg(this,mUri);
+                    mUri = null;
+                }
                 finish();
                 break;
             default:
