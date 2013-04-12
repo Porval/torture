@@ -40,6 +40,7 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
     //the diffeernt distinct mode that compose t_msg
     private static final int MODE_EDIT 		= 0;
     private static final int MODE_INSERT 	= 1;
+    private static final int MODE_VIEW		= 2;
 
     private TortureMsgModel mTortureMsg;
 
@@ -82,12 +83,22 @@ public class ComposeMsgActivity extends Activity implements OnClickListener{
         } else if(Intent.ACTION_INSERT.equals(intent.getAction())){
             mMode = MODE_INSERT;
             mUri = getContentResolver().insert(mUri, null);
+        } else if(Intent.ACTION_VIEW.equals(intent.getAction())){
+            mMode = MODE_VIEW;
         }
+
     }
 
     private void initView(){
+
         mContentEditor = (EditText) findViewById(R.id.content_editor);
         mTitleView = (TextView) findViewById(R.id.title);
+
+        if(MODE_VIEW == mMode){
+            mContentEditor.setEnabled(false);
+        } else {
+            mContentEditor.setEnabled(true);
+        }
 
         findViewById(R.id.submit_btn).setOnClickListener(this);
         findViewById(R.id.cancel_btn).setOnClickListener(this);

@@ -1,6 +1,5 @@
 package com.jumbo.torture.utils;
 
-import com.jumbo.torture.ComposeMsgActivity;
 import com.jumbo.torture.R;
 import com.jumbo.torture.provider.Torture.TortureMsg;
 
@@ -8,8 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.Toast;
-
 
 public class MsgOperationUtils{
 

@@ -24,6 +24,7 @@ public class TortureMainActivity extends Activity implements OnClickListener, On
     private static final String TAG = TortureMainActivity.class.getName();
 
     private static final int CONTEXT_MENU_DELETE		= 1;
+    private static final int CONTEXT_MENU_EDIT			= 2;
 
     ListView mMsgList;
 
@@ -66,7 +67,7 @@ public class TortureMainActivity extends Activity implements OnClickListener, On
             long id) {
         Cursor cursor = (Cursor) mMsgList.getAdapter().getItem(position);
         Intent intent = new Intent(TortureMainActivity.this, ComposeMsgActivity.class);
-        intent.setAction(Intent.ACTION_EDIT);
+        intent.setAction(Intent.ACTION_VIEW);
         Uri uri = ContentUris.withAppendedId(TortureMsg.CONTENT_URI,
                 cursor.getLong(TortureMsgListAdapter.T_MSG_INDEX_ID));
         intent.setData(uri);
@@ -93,7 +94,8 @@ public class TortureMainActivity extends Activity implements OnClickListener, On
             ContextMenuInfo menuInfo) {
 
         menu.setHeaderTitle(R.string.hello_world);
-        menu.add(0,CONTEXT_MENU_DELETE,1,"delete");
+        menu.add(0,CONTEXT_MENU_EDIT,1,"Edit");
+        menu.add(0,CONTEXT_MENU_DELETE,2,"Delete");
     }
 
     @Override
@@ -114,6 +116,11 @@ public class TortureMainActivity extends Activity implements OnClickListener, On
         switch(item.getItemId()){
             case CONTEXT_MENU_DELETE:
                 getContentResolver().delete(uri, null, null);
+                return true;
+            case CONTEXT_MENU_EDIT:
+                Intent intent = new Intent(TortureMainActivity.this, ComposeMsgActivity.class);
+                intent.setAction(Intent.ACTION_EDIT);
+                startActivity(intent);
                 return true;
         }
 
