@@ -116,11 +116,6 @@ public class TortureProvider extends ContentProvider {
             values.put(TortureMsg.TITLE, r.getString(android.R.string.untitled));
         }
 
-        if (values.containsKey(TortureMsg.CONTENT) == false) {
-            Resources r = Resources.getSystem();
-            values.put(TortureMsg.CONTENT,r.getString(R.string.empty_content_hint));
-        }
-
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         long rowId = db.insert(DataBaseHelper.MSG_TABLE_NAME,TortureMsg.CONTENT,values);
         if (rowId > 0) {

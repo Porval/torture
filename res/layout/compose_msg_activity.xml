@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText android:id="@+id/content_editor"
+    <RelativeLayout android:id="@+id/top_bar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_alignParentTop="true"
+        android:layout_height="60dip"
+        android:background="#000000">
+        <TextView android:id="@+id/msg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/hello_world"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <LinearLayout android:id="@+id/bottom_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
         <Button android:id="@+id/submit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,4 +36,11 @@
             android:text="Cancel"/>
     </LinearLayout>
 
-</LinearLayout>
+
+    <EditText android:id="@+id/content_editor"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:layout_above="@id/bottom_bar"/>
+
+</RelativeLayout>
